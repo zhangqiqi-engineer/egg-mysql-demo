@@ -35,10 +35,8 @@ module.exports = appInfo => {
   ];
   config.security = {
     csrf: {
-      // enable: false,
       ignore: '/api',
     },
-    // domainWhiteList: [ '*' ], // 允许访问域名的白名单,*表示都能访问
   };
   // robot's configurations
   config.robot = {

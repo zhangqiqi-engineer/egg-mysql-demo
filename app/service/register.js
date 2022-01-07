@@ -30,10 +30,20 @@ class RegisterService extends Service {
     const ctx = this.ctx;
     const returnData = {};
     const existUser = await this.getUserByName(queryName);
-    if (!existUser) return '用户不存在'; // 用户不存在
+    if (!existUser) {
+      return {
+        code: 0,
+        msg: '用户不存在',
+        state: 'false',
+      };
+    } // 用户不存在
     const checkPasswordResult = this.checkPassword(existUser, queryPass);
     if (!checkPasswordResult) {
-      return '密码错误';// 密码错误
+      return {
+        code: 0,
+        msg: '密码错误',
+        state: 'false',
+      };// 密码错误
     }
     console.log('existUser', existUser);
     if (existUser.status === 0) {
@@ -47,7 +57,11 @@ class RegisterService extends Service {
       returnData.message = existUser.status;
       return returnData;
     }
-    return '登陆成功';// 成功
+    return {
+      code: 1,
+      msg: '登陆成功',
+      state: 'success',
+    };// 成功
 
 
   }
