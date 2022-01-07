@@ -7,21 +7,31 @@ const md5 = require('md5');
 class RegisterService extends Service {
 
   // 注册
-  async registerIndex(queryName, queryPass) {
+  async registerIndex(queryName, queryPass, phone, email, gender) {
     const queryUserName = await this.app.mysql.get('user', {
       userName: queryName,
     });
     const returnData = {
       userName: queryName,
       password: md5(queryPass),
+      phone,
+      email,
+      gender,
     };
     if (!queryUserName) {
       const result = await this.app.mysql.insert('user', returnData);
-      console.log('result', result);
-      return '新增一条数据成功';
+      console.log(result);
+      return {
+        code: 1,
+        msg: '新增一条数据成功',
+        state: 'success',
+      };
     }
-    console.log('该用户名已注册');
-    return '该用户名已注册';
+    return {
+      code: 0,
+      msg: '该用户名已注册',
+      state: 'false',
+    };
 
   }
 
