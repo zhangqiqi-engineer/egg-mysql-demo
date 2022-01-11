@@ -19,17 +19,18 @@ class EmployeeController extends Controller {
 
   }
   //   // 删除
-  //   async delete() {
-  //     const ctx = this.ctx;
-  //     ctx.body = await ctx.service.employee.employeeDelete();
+  async delete() {
+    const ctx = this.ctx;
+    const { id } = ctx.request.body;
+    ctx.body = await ctx.service.employee.employeeDelete(id);
 
-  //   }
+  }
   // 编辑
   async update() {
     const ctx = this.ctx;
-    const { id, userName, password, email, gender, phone } = ctx.request.body;
+    const { id, userName, email, gender, phone } = ctx.request.body;
 
-    ctx.body = await ctx.service.employee.employeeUpdate(id, userName, password, email, gender, phone);
+    ctx.body = await ctx.service.employee.employeeUpdate(id, userName, email, gender, phone);
 
   }
 

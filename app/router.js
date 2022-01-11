@@ -12,7 +12,7 @@ module.exports = app => {
   router.post('/api/register', controller.register.registerIndex);
   router.post('/api/employee/list', check, controller.employee.employeeIndex);
   router.post('/api/employee/add', controller.employee.add);
-  // router.post('/api/employee/delete', controller.employee.delete);
+  router.post('/api/employee/delete', controller.employee.delete);
   router.post('/api/employee/update', controller.employee.update);
 
 };
