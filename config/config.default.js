@@ -38,6 +38,11 @@ module.exports = appInfo => {
       ignore: '/api',
     },
   };
+
+  config.jwt = {
+    // 加密字符串
+    secret: '123456',
+  };
   // robot's configurations
   config.robot = {
     ua: [

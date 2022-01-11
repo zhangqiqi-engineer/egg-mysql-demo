@@ -9,10 +9,10 @@ class RegisterService extends Service {
   // 注册
   async registerIndex(queryName, queryPass, phone, email, gender) {
     const queryUserName = await this.app.mysql.get('user', {
-      userName: queryName,
+      user_name: queryName,
     });
     const returnData = {
-      userName: queryName,
+      user_name: queryName,
       password: md5(queryPass),
       phone,
       email,
@@ -36,9 +36,7 @@ class RegisterService extends Service {
   }
 
   // 登陆
-  async loginIndex(queryName, queryPass) {
-    const ctx = this.ctx;
-    const returnData = {};
+  async loginIndex(queryName, queryPass, token) {
     const existUser = await this.getUserByName(queryName);
     if (!existUser) {
       return {
@@ -55,21 +53,10 @@ class RegisterService extends Service {
         state: 'false',
       };// 密码错误
     }
-    console.log('existUser', existUser);
-    if (existUser.status === 0) {
-      returnData.message = existUser.status;
-      return returnData;
-    } else if (existUser.status === 1) {
-      returnData.message = existUser.status;
-      ctx.session.user_id = existUser.user_id;
-      return returnData;
-    } else if (existUser.status === 2) {
-      returnData.message = existUser.status;
-      return returnData;
-    }
     return {
       code: 1,
       msg: '登陆成功',
+      data: { token, userName: queryName },
       state: 'success',
     };// 成功
 
@@ -78,7 +65,7 @@ class RegisterService extends Service {
 
   async getUserByName(userName) {
     const user = await this.app.mysql.get('user', {
-      userName,
+      user_name: userName,
     });
     return user;
   }
