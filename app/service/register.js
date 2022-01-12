@@ -56,7 +56,7 @@ class RegisterService extends Service {
     return {
       code: 1,
       msg: '登陆成功',
-      data: { token, userName: queryName },
+      data: { token, userName: queryName, id: existUser.id },
       state: 'success',
     };// 成功
 
@@ -74,6 +74,27 @@ class RegisterService extends Service {
     const dbPassword = userInfo.password;
     const md5 = require('md5');
     return dbPassword === md5(userSubmitPassword);
+  }
+
+  async updatePassword(id, password) {
+    const returnData = {
+      id, password,
+    };
+    const result = await this.app.mysql.update('user', returnData);
+    const updateSuccess = result.affectedRows === 1;
+    if (updateSuccess) {
+      return {
+        code: 1,
+        msg: '更新成功',
+        state: 'success',
+      };
+    }
+    return {
+      code: 0,
+      msg: '更新失败',
+      state: 'false',
+    };
+
   }
 
 }

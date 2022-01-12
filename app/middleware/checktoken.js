@@ -15,11 +15,9 @@ function checktoken() {
           msg: '用户校验失败',
         };
       }
-
-
     } catch (e) {
       ctx.body = {
-        code: 0,
+        code: 301,
         msg: 'token未通过验证',
       };
     }

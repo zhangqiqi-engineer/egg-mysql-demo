@@ -28,6 +28,12 @@ class RegisterController extends Controller {
     ctx.body = await ctx.service.register.loginIndex(queryUserName, queryPass, token);
   }
 
+  async updatePassword() {
+    const { ctx } = this;
+    const { password, id } = ctx.request.body;
+    ctx.body = await ctx.service.register.updatePassword(id, password);
+
+  }
 
 }
 

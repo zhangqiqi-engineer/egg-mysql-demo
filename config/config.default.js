@@ -42,7 +42,9 @@ module.exports = appInfo => {
   config.jwt = {
     // 加密字符串
     secret: '123456',
-
+    sign: {
+      expiresIn: 3600 * 2, // 多少s后过期
+    },
 
   };
   // robot's configurations
