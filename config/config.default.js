@@ -42,6 +42,8 @@ module.exports = appInfo => {
   config.jwt = {
     // 加密字符串
     secret: '123456',
+
+
   };
   // robot's configurations
   config.robot = {
@@ -64,6 +66,7 @@ module.exports = appInfo => {
       password: 'zhangqi123',
       // 数据库名
       database: 'test',
+      dateStrings: true,
     },
     // 是否加载到 app 上，默认开启
     app: true,

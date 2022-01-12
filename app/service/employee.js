@@ -1,18 +1,19 @@
 'use strict';
 
 const Service = require('egg').Service;
-const md5 = require('md5');
-
+const moment = require('moment');
 class EmployeeIService extends Service {
   // 查询用户
   async employeeIndex() {
     const res = await this.app.mysql.select('user');
     const data = [];
     for (const o of res) {
-      data.push({ id: o.id, userName: o.user_name, gender: o.gender, email: o.email, phone: o.phone });
+      data.push({ id: o.id, userName: o.user_name, gender: o.gender, email: o.email, phone: o.phone, createTime: o.create_time });
     }
+    data.sort((a, b) => { return a.createTime > b.createTime ? -1 : 1; });
     return data;
   }
+
   // 新增用户
   async employeeAdd(queryName, queryPass, email, gender, phone) {
     const queryUserName = await this.app.mysql.get('user', {
@@ -20,10 +21,10 @@ class EmployeeIService extends Service {
     });
     const returnData = {
       user_name: queryName,
-      password: md5(queryPass),
       phone,
       email,
       gender,
+      create_time: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
     };
     if (!queryUserName) {
       const result = await this.app.mysql.insert('user', returnData);

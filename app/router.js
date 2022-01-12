@@ -11,8 +11,8 @@ module.exports = app => {
   router.post('/api/login', controller.register.loginIndex);
   router.post('/api/register', controller.register.registerIndex);
   router.post('/api/employee/list', check, controller.employee.employeeIndex);
-  router.post('/api/employee/add', controller.employee.add);
-  router.post('/api/employee/delete', controller.employee.delete);
-  router.post('/api/employee/update', controller.employee.update);
+  router.post('/api/employee/add', check, controller.employee.add);
+  router.post('/api/employee/delete', check, controller.employee.delete);
+  router.post('/api/employee/update', check, controller.employee.update);
 
 };
