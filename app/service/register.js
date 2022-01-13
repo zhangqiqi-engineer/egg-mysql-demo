@@ -63,19 +63,21 @@ class RegisterService extends Service {
 
   }
 
+  // 查找当前用户 返回用户信息
   async getUserByName(userName) {
     const user = await this.app.mysql.get('user', {
       user_name: userName,
     });
     return user;
   }
-
+  // 密码进行核对
   async checkPassword(userInfo, userSubmitPassword) {
     const dbPassword = userInfo.password;
     const md5 = require('md5');
     return dbPassword === md5(userSubmitPassword);
   }
 
+  // 修改密码
   async updatePassword(id, password) {
     const returnData = {
       id, password,
@@ -96,6 +98,7 @@ class RegisterService extends Service {
     };
 
   }
+
 
 }
 module.exports = RegisterService;

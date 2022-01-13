@@ -44,8 +44,14 @@ module.exports = appInfo => {
     secret: '123456',
     sign: {
       expiresIn: 3600 * 2, // 多少s后过期
+      // expiresIn: 10,
     },
 
+  };
+  config.session = {
+    key: 'SESSION_ID',
+    maxAge: 3600 * 2 * 1000, // 毫秒
+    renew: true, // 延长会话有效期
   };
   // robot's configurations
   config.robot = {
